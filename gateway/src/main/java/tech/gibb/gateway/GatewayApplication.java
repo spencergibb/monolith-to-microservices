@@ -16,7 +16,7 @@ public class GatewayApplication {
 						.filters(f -> f.setPath("/index.html"))
 						.uri("lb://ui"))
 				.route("ui", p -> p.path("/").or().path("/css/**").or().path("/js/**")
-						.uri("lb://ui1"))
+						.uri("lb://ui"))
 				.route("monolith", p -> p.path("/**")
 						.uri("http://localhost:8081"))
 				.build();
