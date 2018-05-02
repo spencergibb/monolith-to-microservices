@@ -1,4 +1,10 @@
-spring.application.name: gateway
+spring:
+  application.name: gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
 server.port: 8080
 logging:
   level:
