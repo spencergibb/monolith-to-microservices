@@ -12,7 +12,12 @@ public class GatewayApplication {
 	@Bean
 	public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
 		return builder.routes()
-				.route(p -> p.path("/**")
+				.route("index", p -> p.path("/")
+						.filters(f -> f.setPath("/index.html"))
+						.uri("http://localhost:8082"))
+				.route("ui", p -> p.path("/").or().path("/css/**").or().path("/js/**")
+						.uri("http://localhost:8082"))
+				.route("monolith", p -> p.path("/**")
 						.uri("http://localhost:8081"))
 				.build();
 	}
