@@ -9,3 +9,8 @@ server.port: 8080
 logging:
   level:
     org.springframework.cloud.gateway: TRACE
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
