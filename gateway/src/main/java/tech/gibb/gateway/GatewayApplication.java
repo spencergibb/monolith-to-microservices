@@ -16,9 +16,10 @@ public class GatewayApplication {
 	@Bean
 	public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
 		return builder.routes()
-				.route("fortune", p -> p.path("/service/randomfortune")
-						.filters(f -> f.hystrix(c -> c.setFallbackUri("forward:/defaultfortune")))
-						.uri("http://localhost:8081"))
+				.route("fortune_rewrite", p -> p.path("/service/randomfortune")
+						.filters(f -> f.setPath("/fortune")
+								.hystrix(c -> c.setFallbackUri("forward:/defaultfortune")))
+						.uri("lb://fortune"))
 				.route("hello_rewrite", p -> p.path("/service/hello/**")
 						.filters(f -> f.filter((exchange, chain) -> {
 							String name = exchange.getRequest().getQueryParams().getFirst("name");
